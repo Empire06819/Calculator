@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 16px;
+        background: #f3f4f6;
+        font-family: Arial, sans-serif;
+      }
+
+      .calculator {
+        width: 240px;
+        padding: 18px;
+        border-radius: 12px;
+        background: #ffffff;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+      }
+
+      .display {
+        min-height: 48px;
+        margin: 0 0 12px;
+        padding: 10px;
+        border-radius: 8px;
+        background: #111827;
+        color: #ffffff;
+        font-size: 1.4rem;
+        text-align: right;
+        overflow-x: auto;
+      }
+
+      .all-buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+
+      button {
+        height: 44px;
+        border: 0;
+        border-radius: 8px;
+        background: #e5e7eb;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #d1d5db;
+      }
+
+      .operator {
+        background: #f59e0b;
+        color: #111827;
+        font-weight: 700;
+      }
+
+      .operator:hover {
+        background: #d97706;
+      }
+
+      .clear {
+        background: #ef4444;
+        color: #ffffff;
+      }
+
+      .clear:hover {
+        background: #dc2626;
+      }
+
+      .equals {
+        background: #22c55e;
+        color: #ffffff;
+        font-weight: 700;
+      }
+
+      .equals:hover {
+        background: #16a34a;
+      }
+
+      footer {
+        color: #6b7280;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="calculator" aria-label="Calculator">
+      <p class="display" id="display">0</p>
+
+      <div class="all-buttons">
+        <button onclick="appendValue('1')">1</button>
+        <button onclick="appendValue('2')">2</button>
+        <button onclick="appendValue('3')">3</button>
+        <button class="operator" onclick="appendValue('+')">+</button>
+
+        <button onclick="appendValue('4')">4</button>
+        <button onclick="appendValue('5')">5</button>
+        <button onclick="appendValue('6')">6</button>
+        <button class="operator" onclick="appendValue('-')">-</button>
+
+        <button onclick="appendValue('7')">7</button>
+        <button onclick="appendValue('8')">8</button>
+        <button onclick="appendValue('9')">9</button>
+        <button class="operator" onclick="appendValue('/')">/</button>
+
+        <button onclick="appendValue('.')">.</button>
+        <button onclick="appendValue('0')">0</button>
+        <button class="operator" onclick="appendValue('*')">*</button>
+        <button class="equals" onclick="calculateResult()">=</button>
+
+        <button class="clear" onclick="clearCalculation()">Clear</button>
+      </div>
+    </main>
+
+    <footer>Senuga</footer>
+
+    <script>
+      let calculation = "";
+      const display = document.getElementById("display");
+
+      function updateDisplay() {
+        display.textContent = calculation || "0";
+      }
+
+      function appendValue(value) {
+        calculation += value;
+        updateDisplay();
+      }
+
+      function calculateResult() {
+        try {
+          calculation = String(eval(calculation));
+          updateDisplay();
+        } catch (error) {
+          display.textContent = "Error";
+          calculation = "";
+        }
+      }
+
+      function clearCalculation() {
+        calculation = "";
+        updateDisplay();
+      }
+    </script>
+  </body>
+</html>
